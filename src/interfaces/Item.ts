@@ -8,5 +8,12 @@ export interface Item {
   rating: {
     rate: number,
     count: number
-  }
+  },
+  count: number;
+}
+
+export interface InitialItemsState {
+  data: Item[],
+  isLoading: boolean,
+  isError: boolean,
 }
