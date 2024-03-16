@@ -1,16 +1,16 @@
 import React from 'react'
 import { Div, ButtonGroup, IconButton, Image, RichCell } from '@vkontakte/vkui'
 import '@vkontakte/vkui/dist/vkui.css'
-import { Icon16Add, Icon16Minus, Icon20DeleteOutline } from '@vkontakte/icons';
-import { Item as IItem } from '../models/Item';
+import { Icon16Add, Icon16Minus, Icon20DeleteOutline } from '@vkontakte/icons'
+import { Item as IItem } from '../models/Item'
 
 type ItemProps = {
-  item: IItem
+    item: IItem
 }
 
 const Item: React.FC<ItemProps> = ({ item }) => {
-  return (
-    <div>
+    return (
+        <div>
             <RichCell
                 before={<Image src={item.image} />}
                 text={`${item.description}`}
@@ -39,7 +39,7 @@ const Item: React.FC<ItemProps> = ({ item }) => {
                 {item.title}
             </RichCell>
         </div>
-  )
+    )
 }
 
 export default Item

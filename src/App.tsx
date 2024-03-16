@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import {
     SplitLayout,
     View,
@@ -8,27 +8,16 @@ import {
     Group,
     SplitCol,
     Div,
+    Title,
+    Alert,
 } from '@vkontakte/vkui'
 import '@vkontakte/vkui/dist/vkui.css'
 import Item from './components/Item'
-import { getItems } from './api/getItems'
 import { Item as IItem } from './models/Item'
+import { itemAPI } from './api/itemsService'
 
 const App: React.FC = () => {
-    const [items, setItems] = useState<IItem[] | undefined>()
-
-    useEffect(() => {
-        const fetchItems = async () => {
-            try {
-                const data = await getItems()
-                setItems(data)
-            } catch (error) {
-                console.error('Error fetching items:', error)
-            }
-        }
-
-        fetchItems()
-    }, [])
+    const { data: items, error, isLoading } = itemAPI.useFetchAllItemsQuery()
 
     return (
         <div className="App">
@@ -49,6 +38,23 @@ const App: React.FC = () => {
                                     }
                                     padding={'m'}
                                 >
+                                    {isLoading && (
+                                        <Title>Товары загружаются</Title>
+                                    )}
+                                    {error && (
+                                        <Alert
+                                            actions={[
+                                                {
+                                                    title: 'Лишить права',
+                                                    mode: 'destructive',
+                                                    action: () => {},
+                                                },
+                                            ]}
+                                            onClose={() => {}}
+                                        >
+                                            Ошибка
+                                        </Alert>
+                                    )}
                                     {items &&
                                         items.map((item: IItem) => {
                                             return <Item item={item} />
