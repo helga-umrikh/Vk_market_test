@@ -14,11 +14,7 @@ import '@vkontakte/vkui/dist/vkui.css'
 import Item from './components/Item'
 import { Item as IItem } from './interfaces/Item'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-    addItems,
-    setError,
-    setLoading,
-} from './redux/slices/itemsSlice'
+import { addItems, setError, setLoading } from './redux/slices/itemsSlice'
 import { RootState } from './redux/store'
 
 const App: React.FC = () => {
@@ -94,13 +90,9 @@ const App: React.FC = () => {
                                         {`
                                         Итого: ${
                                             items &&
-                                            Math.floor(
-                                                items.reduce((acc, i) => {
-                                                    return (
-                                                        i.price * i.count + acc
-                                                    )
-                                                }, 0)
-                                            )
+                                            (items.reduce((acc, i) => {
+                                                return Math.round(i.price * 100) * i.count + acc
+                                            }, 0) / 100)
                                         } руб.`}
                                     </Header>
                                 </Group>
