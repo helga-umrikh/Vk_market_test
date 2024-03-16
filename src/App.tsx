@@ -10,6 +10,7 @@ import {
     Div,
 } from '@vkontakte/vkui'
 import '@vkontakte/vkui/dist/vkui.css';
+import Item from './components/Item'
 
 const App = () => {
     return (
@@ -31,7 +32,7 @@ const App = () => {
                                     }
                                     padding={'m'}
                                 >
-                                    
+                                 <Item />   
                                 </Group>
                             </SplitCol>
                             <SplitCol
