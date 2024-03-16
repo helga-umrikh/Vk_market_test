@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     SplitLayout,
     View,
@@ -9,10 +9,27 @@ import {
     SplitCol,
     Div,
 } from '@vkontakte/vkui'
-import '@vkontakte/vkui/dist/vkui.css';
+import '@vkontakte/vkui/dist/vkui.css'
 import Item from './components/Item'
+import { getItems } from './api/getItems'
+import { Item as IItem } from './models/Item'
 
-const App = () => {
+const App: React.FC = () => {
+    const [items, setItems] = useState<IItem[] | undefined>()
+
+    useEffect(() => {
+        const fetchItems = async () => {
+            try {
+                const data = await getItems()
+                setItems(data)
+            } catch (error) {
+                console.error('Error fetching items:', error)
+            }
+        }
+
+        fetchItems()
+    }, [])
+
     return (
         <div className="App">
             <View activePanel="header">
@@ -32,7 +49,10 @@ const App = () => {
                                     }
                                     padding={'m'}
                                 >
-                                 <Item />   
+                                    {items &&
+                                        items.map((item: IItem) => {
+                                            return <Item item={item} />
+                                        })}
                                 </Group>
                             </SplitCol>
                             <SplitCol
